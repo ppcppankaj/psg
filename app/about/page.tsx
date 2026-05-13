@@ -104,7 +104,7 @@ export default function AboutPage() {
 
       {/* Company Intro */}
       <section className="py-16 lg:py-24" style={{ background: "white" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full overflow-hidden">
             {/* Left col */}
             <AnimSection className="w-full min-w-0">
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
       {/* Mission & Vision */}
       <section className="py-16 lg:py-20" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <AnimSection className="text-center mb-12">
             <span className="gold-badge mb-4">Our Purpose</span>
             <h2 className="section-title text-navy mt-3">Mission &amp; Vision</h2>
@@ -211,7 +211,7 @@ export default function AboutPage() {
 
       {/* Values */}
       <section className="py-16 lg:py-20" style={{ background: "white" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <AnimSection className="text-center mb-12">
             <span className="gold-badge mb-4">Core Principles</span>
             <h2 className="section-title text-navy mt-3">
@@ -316,7 +316,7 @@ export default function AboutPage() {
 
       {/* Team */}
       <section className="py-16 lg:py-20" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <AnimSection className="text-center mb-12">
             <span className="gold-badge mb-4">Leadership</span>
             <h2 className="section-title text-navy mt-3">

@@ -18,7 +18,7 @@ function AnimSection({ children, className = "" }: { children: React.ReactNode; 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div ref={ref} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className={className}>
+    <motion.div ref={ref} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className={`w-full min-w-0 ${className}`}>
       {children}
     </motion.div>
   );
@@ -110,7 +110,7 @@ export default function ServicesPage() {
 
       {/* Services Grid */}
       <section className="py-20 lg:py-28" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -180,7 +180,7 @@ export default function ServicesPage() {
         className="py-20"
         style={{ background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)" }}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <AnimSection className="text-center mb-14">
             <span className="gold-badge mb-4">How It Works</span>
             <h2 className="section-title text-white">Simple <span className="text-gradient-gold">4-Step Process</span></h2>
@@ -213,7 +213,7 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section className="py-16" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-5 text-center">
           <AnimSection>
             <h2 className="section-title text-navy mb-4">
               Ready to <span className="text-gradient-gold">Get Started</span>?
