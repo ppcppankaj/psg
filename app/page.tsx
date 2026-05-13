@@ -139,13 +139,15 @@ export default function HomePage() {
         }}
       >
         {/* Grid pattern */}
-        <div className="absolute inset-0 pattern-bg opacity-50" />
+        <div className="absolute inset-0 pattern-bg opacity-40 mix-blend-overlay" />
 
-        {/* Gold orbs */}
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full opacity-10 pointer-events-none"
-          style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
-        <div className="absolute bottom-1/3 left-1/5 w-96 h-96 rounded-full opacity-8 pointer-events-none"
-          style={{ background: "radial-gradient(circle, var(--gold-light) 0%, transparent 70%)" }} />
+        {/* Animated Premium Glass Orbs */}
+        <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] rounded-full pointer-events-none animate-float blur-[100px]"
+          style={{ background: "var(--gold)" }} />
+        <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none animate-float-delayed blur-[120px]"
+          style={{ background: "var(--gold-light)" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none blur-[150px] opacity-10"
+          style={{ background: "var(--navy-light)" }} />
 
         <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 text-center pt-24 pb-16">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
