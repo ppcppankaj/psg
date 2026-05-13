@@ -10,7 +10,7 @@ import {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 
@@ -83,7 +83,7 @@ export default function ServicesPage() {
       <section
         className="relative overflow-hidden"
         style={{
-          paddingTop: "14rem",
+          paddingTop: "clamp(7rem, 18vw, 13rem)",
           paddingBottom: "5rem",
           background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)"
         }}
@@ -116,14 +116,13 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-wrap gap-8 justify-center"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
           >
-            {services.map(({ icon: Icon, title, desc, features, color }) => (
+            {services.map(({ icon: Icon, title, desc, features, color }, idx) => (
               <motion.div
                 key={title}
                 variants={fadeUp}
-                style={{ width: "calc(33.333% - 22px)", minWidth: 280 }}
-                className="flex-grow-0"
+                className={`w-full min-w-0 ${idx === services.length - 1 ? "lg:col-start-2" : ""}`}
               >
                 <div className="glass-card-white card-hover h-full rounded-2xl overflow-hidden flex flex-col">
                   {/* Card top accent */}
@@ -188,15 +187,15 @@ export default function ServicesPage() {
             <div className="gold-line mx-auto mt-4" />
           </AnimSection>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {[
               { step: "01", title: "Submit Requirement", desc: "Fill our online form or call us with your staffing needs." },
               { step: "02", title: "Get a Quote", desc: "Receive a transparent, competitive quote within 24 hours." },
               { step: "03", title: "Staff Selection", desc: "We shortlist and verify the right candidates for you." },
               { step: "04", title: "Deployment", desc: "Staff deployed at your location, ready to work." },
             ].map(({ step, title, desc }) => (
-              <AnimSection key={step}>
-                <div className="text-center glass-card p-7 rounded-2xl h-full">
+              <AnimSection key={step} className="w-full min-w-0">
+                <div className="text-center glass-card p-7 rounded-2xl h-full w-full">
                   <div
                     className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center font-extrabold text-lg"
                     style={{ background: "linear-gradient(135deg, var(--gold-light), var(--gold-dark))", color: "var(--navy)" }}

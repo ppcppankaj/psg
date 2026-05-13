@@ -85,13 +85,13 @@ export default function JobSeekerPage() {
       <section
         className="relative overflow-hidden"
         style={{
-          paddingTop: "14rem",
+          paddingTop: "clamp(7rem, 18vw, 13rem)",
           paddingBottom: "4rem",
           background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)"
         }}
       >
         <div className="absolute inset-0 pattern-bg opacity-40" />
-        <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
+        <div className="max-w-5xl mx-auto px-5 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export default function JobSeekerPage() {
 
       {/* Form */}
       <section className="py-20" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

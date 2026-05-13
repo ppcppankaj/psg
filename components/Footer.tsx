@@ -75,10 +75,10 @@ export default function Footer() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 w-full">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 min-w-0">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <Image
                 src="/logo.png"
@@ -112,16 +112,18 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex gap-3 mt-6">
               {[
-                { Icon: SocialFacebook, href: "#", label: "Facebook" },
-                { Icon: SocialInstagram, href: "#", label: "Instagram" },
-                { Icon: SocialLinkedin, href: "#", label: "LinkedIn" },
-                { Icon: SocialTwitter, href: "#", label: "Twitter" },
+                { Icon: SocialFacebook, href: "https://facebook.com/psgassociate", label: "Facebook" },
+                { Icon: SocialInstagram, href: "https://instagram.com/psgassociate", label: "Instagram" },
+                { Icon: SocialLinkedin, href: "https://linkedin.com/company/psgassociate", label: "LinkedIn" },
+                { Icon: SocialTwitter, href: "https://twitter.com/psgassociate", label: "Twitter" },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
                   style={{
                     background: "rgba(201,168,76,0.12)",
                     border: "1px solid rgba(201,168,76,0.25)",
@@ -141,7 +143,7 @@ export default function Footer() {
 
 
           {/* Quick Links */}
-          <div>
+          <div className="min-w-0">
             <h3 className="text-white font-bold text-base mb-5 flex items-center gap-2">
               <span
                 className="w-6 h-0.5 inline-block"
@@ -168,7 +170,7 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="min-w-0">
             <h3 className="text-white font-bold text-base mb-5 flex items-center gap-2">
               <span
                 className="w-6 h-0.5 inline-block"
@@ -195,7 +197,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="min-w-0">
             <h3 className="text-white font-bold text-base mb-5 flex items-center gap-2">
               <span
                 className="w-6 h-0.5 inline-block"

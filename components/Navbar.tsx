@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,6 +26,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -37,6 +38,17 @@ export default function Navbar() {
     setMobileOpen(false);
     setDropdownOpen(false);
   }, [pathname]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
     <>
@@ -53,7 +65,7 @@ export default function Navbar() {
           backdropFilter: scrolled ? "blur(12px)" : "none",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -82,7 +94,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-7">
               {navLinks.map((link) =>
                 link.children ? (
-                  <div key={link.label} className="relative">
+                  <div key={link.label} className="relative" ref={dropdownRef}>
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                       className="nav-link flex items-center gap-1"
@@ -161,6 +173,8 @@ export default function Navbar() {
               background: "rgba(10,22,40,0.98)",
               backdropFilter: "blur(16px)",
               borderBottom: "1px solid rgba(201,168,76,0.2)",
+              maxHeight: "calc(100vh - 4rem)",
+              overflowY: "auto",
             }}
           >
             <div className="px-6 py-6 flex flex-col gap-2">

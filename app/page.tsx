@@ -72,7 +72,7 @@ const stats = [
 /* ─── Animation Variants ─────────────────────────────────────────── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 const stagger = {
   visible: { transition: { staggerChildren: 0.1 } },
@@ -110,13 +110,7 @@ function AnimSection({ children, className = "" }: { children: React.ReactNode; 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <motion.div
-      ref={ref}
-      variants={fadeUp}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className={className}
-    >
+    <motion.div ref={ref} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className={`w-full min-w-0 ${className}`}>
       {children}
     </motion.div>
   );
@@ -153,7 +147,7 @@ export default function HomePage() {
         <div className="absolute bottom-1/3 left-1/5 w-96 h-96 rounded-full opacity-8 pointer-events-none"
           style={{ background: "radial-gradient(circle, var(--gold-light) 0%, transparent 70%)" }} />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
+        <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 text-center pt-24 pb-16">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className="gold-badge mb-6 inline-flex">
               <Star size={10} fill="currentColor" />
@@ -209,10 +203,10 @@ export default function HomePage() {
             transition={{ delay: 0.65, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="/client-requirement" id="hire-manpower-cta" className="btn-gold text-base py-4 px-8">
+            <Link href="/client-requirement" id="hire-manpower-cta" className="btn-gold text-base py-4 px-8 w-full sm:w-auto justify-center">
               <Users size={18} /> Hire Manpower
             </Link>
-            <Link href="/job-seeker" id="apply-jobs-cta" className="btn-outline-gold text-base py-4 px-8">
+            <Link href="/job-seeker" id="apply-jobs-cta" className="btn-outline-gold text-base py-4 px-8 w-full sm:w-auto justify-center">
               <ArrowRight size={18} /> Apply for Jobs
             </Link>
           </motion.div>
@@ -222,10 +216,10 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6"
+            className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 w-full"
           >
             {stats.map(({ value, suffix, label }) => (
-              <div key={label} className="glass-card py-5 px-4">
+              <div key={label} className="glass-card py-5 px-4 w-full min-w-0">
                 <p className="text-3xl font-extrabold text-gradient-gold mb-1">
                   <Counter value={value} suffix={suffix} />
                 </p>
@@ -248,7 +242,7 @@ export default function HomePage() {
 
       {/* ── Services ──────────────────────────────────────────── */}
       <section className="py-20 lg:py-28" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <AnimSection className="text-center mb-14">
             <span className="gold-badge mb-4">What We Offer</span>
             <h2 className="section-title text-navy mb-4">Our <span className="text-gradient-gold">Services</span></h2>
@@ -263,10 +257,10 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full"
           >
             {services.map(({ icon: Icon, label, desc }) => (
-              <motion.div key={label} variants={fadeUp} className="w-full">
+              <motion.div key={label} variants={fadeUp} className="w-full min-w-0">
                 <div className="glass-card-white card-hover h-full p-7 flex flex-col gap-4 group">
                   <div className="icon-ring">
                     <Icon size={24} style={{ color: "var(--gold)" }} />
@@ -295,7 +289,7 @@ export default function HomePage() {
         <div className="absolute top-0 right-0 w-80 h-80 rounded-full opacity-10 pointer-events-none"
           style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)", transform: "translate(40%, -40%)" }} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           <AnimSection className="text-center mb-14">
             <span className="gold-badge mb-4">Our Advantage</span>
             <h2 className="section-title text-white mb-4">Why Choose <span className="text-gradient-gold">PSG Associate</span>?</h2>
@@ -306,16 +300,13 @@ export default function HomePage() {
           </AnimSection>
 
           <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
           >
             {whyUs.map(({ icon: Icon, label, desc }) => (
-              <motion.div key={label} variants={fadeUp}>
+              <motion.div key={label} variants={fadeUp} className="w-full min-w-0">
                 <div
-                  className="p-7 rounded-2xl flex items-start gap-5 group card-hover cursor-default"
+                  className="p-7 rounded-2xl flex items-start gap-5 group card-hover w-full cursor-default"
                   style={{
                     background: "rgba(255,255,255,0.05)",
                     border: "1px solid rgba(201,168,76,0.18)",
@@ -345,14 +336,20 @@ export default function HomePage() {
           <h2 className="font-bold text-navy text-2xl">Our Clients &amp; Partners</h2>
         </AnimSection>
 
-        <div className="relative">
-          <div className="flex gap-12 overflow-hidden">
+        <div className="relative overflow-hidden">
+          <div
+            className="flex gap-12 overflow-hidden"
+            style={{
+              maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+            }}
+          >
             <motion.div
               className="flex gap-12 items-center shrink-0"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
+              animate={{ x: ["0%", "-25%"] }}
+              transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
             >
-              {[...clients, ...clients].map((c, i) => (
+              {[...clients, ...clients, ...clients, ...clients].map((c, i) => (
                 <div
                   key={i}
                   className="flex items-center justify-center px-8 py-3 rounded-xl shrink-0 font-bold text-sm whitespace-nowrap"
@@ -374,7 +371,7 @@ export default function HomePage() {
 
       {/* ── Testimonials ──────────────────────────────────────── */}
       <section className="py-20 lg:py-28" style={{ background: "white" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
           <AnimSection className="text-center mb-14">
             <span className="gold-badge mb-4">Client Stories</span>
             <h2 className="section-title text-navy mb-4">What Our <span className="text-gradient-gold">Clients Say</span></h2>
@@ -389,7 +386,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.4 }}
-                className="rounded-3xl p-10 relative"
+                className="rounded-3xl p-6 sm:p-10 relative"
                 style={{
                   background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)",
                 }}
@@ -462,7 +459,7 @@ export default function HomePage() {
             backgroundSize: "28px 28px",
           }} />
 
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-5 text-center relative z-10">
           <AnimSection>
             <h2 className="font-extrabold text-navy mb-5"
               style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}>

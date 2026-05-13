@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User, Phone, Mail, MessageSquare, MapPin, Clock, Send, CheckCircle2
+  User, Phone, Mail, MessageSquare, Tag, MapPin, Clock, Send, CheckCircle2
 } from "lucide-react";
 
 const schema = z.object({
@@ -52,13 +52,13 @@ export default function ContactPage() {
       <section
         className="relative overflow-hidden"
         style={{
-          paddingTop: "14rem",
+          paddingTop: "clamp(7rem, 18vw, 13rem)",
           paddingBottom: "5rem",
           background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)"
         }}
       >
         <div className="absolute inset-0 pattern-bg opacity-40" />
-        <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
+        <div className="max-w-5xl mx-auto px-5 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function ContactPage() {
       </section>
 
       <section className="py-20" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
           <div className="grid lg:grid-cols-5 gap-10">
             {/* Contact Info */}
             <div className="lg:col-span-2 space-y-6">
@@ -152,11 +152,11 @@ export default function ContactPage() {
                 Chat on WhatsApp
               </a>
 
-              {/* Google Maps embed */}
+              {/* Google Maps embed — corrected coordinates for Rewari, Haryana */}
               <div className="rounded-2xl overflow-hidden shadow-lg" style={{ height: 220 }}>
                 <iframe
                   title="PSG Associate Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.9!2d76.6!3d28.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDEyJzAwLjAiTiA3NsKwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1000000000000!5m2!1sen!2sin"
+                  src="https://maps.google.com/maps?q=167/3+Uttam+Nagar+Near+Skoda+Showroom+Delhi+Road+Rewari+Haryana+123401&output=embed"
                   width="100%"
                   height="220"
                   style={{ border: 0 }}
@@ -223,7 +223,7 @@ export default function ContactPage() {
                       Subject <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <MapPin size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <Tag size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input {...register("subject")} id="contact-subject" type="text" placeholder="How can we help you?" className="input-field pl-10" />
                     </div>
                     {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}

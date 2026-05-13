@@ -1,13 +1,32 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { Target, Eye, Users, Award, TrendingUp, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 
+// Animated counter — same pattern as homepage
+function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = (value / 2000) * 16;
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= value) { setCount(value); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, value]);
+  return <span ref={ref} className="count-up">{count}{suffix}</span>;
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 
@@ -15,7 +34,7 @@ function AnimSection({ children, className = "" }: { children: React.ReactNode; 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div ref={ref} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className={className}>
+    <motion.div ref={ref} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className={`w-full min-w-0 ${className}`}>
       {children}
     </motion.div>
   );
@@ -45,10 +64,10 @@ const values = [
 ];
 
 const statsData = [
-  { value: "500+", label: "Clients Served", dark: true },
-  { value: "5000+", label: "Staff Deployed", dark: false },
-  { value: "10+", label: "Years Experience", dark: false },
-  { value: "PAN India", label: "Operations", dark: true },
+  { value: 500, suffix: "+", label: "Clients Served", dark: true },
+  { value: 5000, suffix: "+", label: "Staff Deployed", dark: false },
+  { value: 10, suffix: "+", label: "Years Experience", dark: false },
+  { value: 0, suffix: "", label: "Operations", dark: true, static: "PAN India" },
 ];
 
 export default function AboutPage() {
@@ -64,7 +83,7 @@ export default function AboutPage() {
         }}
       >
         <div className="absolute inset-0 pattern-bg opacity-40" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -86,9 +105,9 @@ export default function AboutPage() {
       {/* Company Intro */}
       <section className="py-16 lg:py-24" style={{ background: "white" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full overflow-hidden">
             {/* Left col */}
-            <AnimSection>
+            <AnimSection className="w-full min-w-0">
               <span className="gold-badge mb-4">Our Story</span>
               <h2 className="section-title text-navy mt-3 mb-5">
                 Building Bridges Between{" "}
@@ -120,9 +139,9 @@ export default function AboutPage() {
             </AnimSection>
 
             {/* Stats grid */}
-            <AnimSection>
-              <div className="grid grid-cols-2 gap-4 sm:gap-5">
-                {statsData.map(({ value, label, dark }) => (
+            <AnimSection className="w-full min-w-0">
+              <div className="grid grid-cols-2 gap-4 sm:gap-5 w-full">
+                {statsData.map(({ value, suffix, label, dark, static: staticVal }) => (
                   <div
                     key={label}
                     className="p-6 sm:p-8 rounded-2xl text-center card-hover cursor-default"
@@ -137,7 +156,7 @@ export default function AboutPage() {
                       className="text-3xl sm:text-4xl font-extrabold mb-2"
                       style={{ color: dark ? "var(--gold-light)" : "var(--navy)" }}
                     >
-                      {value}
+                      {staticVal ? staticVal : <Counter value={value} suffix={suffix} />}
                     </p>
                     <p className="text-sm font-semibold" style={{ color: dark ? "rgba(255,255,255,0.65)" : "var(--gray-600)" }}>
                       {label}
@@ -158,7 +177,7 @@ export default function AboutPage() {
             <h2 className="section-title text-navy mt-3">Mission &amp; Vision</h2>
             <div className="gold-line mx-auto mt-4" />
           </AnimSection>
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 w-full">
             {[
               {
                 icon: Target, title: "Our Mission", color: "var(--navy)",
@@ -169,8 +188,8 @@ export default function AboutPage() {
                 text: "To become India's leading integrated business services company — known for integrity, professionalism and excellence — making PSG Associate the first choice for both businesses and professionals.",
               },
             ].map(({ icon: Icon, title, color, text }) => (
-              <AnimSection key={title}>
-                <div className="glass-card-white p-8 lg:p-10 h-full card-hover rounded-2xl">
+              <AnimSection key={title} className="w-full min-w-0">
+                <div className="glass-card-white p-8 lg:p-10 h-full card-hover rounded-2xl w-full">
                   <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
                     style={{
@@ -202,12 +221,12 @@ export default function AboutPage() {
           </AnimSection>
           <motion.div
             variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full"
           >
             {values.map(({ icon: Icon, title, desc }) => (
-              <motion.div key={title} variants={fadeUp}>
+              <motion.div key={title} variants={fadeUp} className="w-full min-w-0">
                 <div
-                  className="text-center p-7 rounded-2xl card-hover cursor-default h-full"
+                  className="text-center p-7 rounded-2xl card-hover cursor-default h-full w-full"
                   style={{ background: "var(--off-white)", border: "1px solid var(--gray-100)" }}
                 >
                   <div
@@ -227,7 +246,7 @@ export default function AboutPage() {
 
       {/* Journey Timeline */}
       <section className="py-16 lg:py-20" style={{ background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)" }}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <AnimSection className="text-center mb-12">
             <span className="gold-badge mb-4">Our Journey</span>
             <h2 className="section-title text-white mt-3">
@@ -235,30 +254,58 @@ export default function AboutPage() {
             </h2>
             <div className="gold-line mx-auto mt-4" />
           </AnimSection>
-          <div className="relative">
-            {/* Center line — hidden on mobile, shown on md+ */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px opacity-30"
-              style={{ background: "var(--gold)", transform: "translateX(-50%)" }} />
-            {/* Mobile left line */}
-            <div className="md:hidden absolute left-4 top-0 bottom-0 w-px opacity-30"
-              style={{ background: "var(--gold)" }} />
-            <div className="space-y-6">
+          {/* Timeline wrapper — must be position:relative */}
+          <div className="relative w-full">
+            {/* Vertical line — desktop only, centered */}
+            <div
+              className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px opacity-30"
+              style={{ background: "var(--gold)", transform: "translateX(-50%)" }}
+            />
+            {/* Mobile vertical line — left edge */}
+            <div
+              className="md:hidden absolute left-5 top-0 bottom-0 w-px opacity-30"
+              style={{ background: "var(--gold)" }}
+            />
+
+            <div className="space-y-8">
               {milestones.map(({ year, event }, i) => (
-                <AnimSection key={year}>
-                  <div className={`flex items-center gap-4 md:gap-6 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                    <div className={`flex-1 pl-10 md:pl-0 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                      <div className="glass-card p-4 rounded-xl inline-block text-left">
-                        <p className="text-[var(--gold)] font-bold text-lg mb-1">{year}</p>
-                        <p className="text-white/80 text-sm">{event}</p>
-                      </div>
-                    </div>
+                <AnimSection key={year} className="w-full min-w-0">
+                  {/* MOBILE LAYOUT: always left-aligned with left line */}
+                  <div className="flex items-start gap-4 pl-0 md:hidden">
                     <div
-                      className="absolute left-4 md:relative md:left-auto flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center z-10"
+                      className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center z-10 ml-1"
                       style={{ background: "var(--gold)", boxShadow: "0 0 12px rgba(201,168,76,0.5)" }}
                     >
                       <div className="w-3 h-3 rounded-full bg-white" />
                     </div>
-                    <div className="flex-1 hidden md:block" />
+                    <div className="glass-card p-4 rounded-xl flex-1 min-w-0">
+                      <p className="text-[var(--gold)] font-bold text-lg mb-1">{year}</p>
+                      <p className="text-white/80 text-sm">{event}</p>
+                    </div>
+                  </div>
+
+                  {/* DESKTOP LAYOUT: alternating left/right */}
+                  <div
+                    className={`hidden md:flex items-center gap-6 ${
+                      i % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                    }`}
+                  >
+                    {/* Content card */}
+                    <div className={`flex-1 min-w-0 ${i % 2 === 0 ? "text-right" : "text-left"}`}>
+                      <div className="glass-card p-4 rounded-xl inline-block text-left max-w-xs">
+                        <p className="text-[var(--gold)] font-bold text-lg mb-1">{year}</p>
+                        <p className="text-white/80 text-sm">{event}</p>
+                      </div>
+                    </div>
+                    {/* Dot — relative, sits on the center line */}
+                    <div
+                      className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center z-10"
+                      style={{ background: "var(--gold)", boxShadow: "0 0 12px rgba(201,168,76,0.5)" }}
+                    >
+                      <div className="w-3 h-3 rounded-full bg-white" />
+                    </div>
+                    {/* Empty opposite side */}
+                    <div className="flex-1 min-w-0" />
                   </div>
                 </AnimSection>
               ))}
@@ -279,11 +326,11 @@ export default function AboutPage() {
           </AnimSection>
           <motion.div
             variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-5"
+            className="grid grid-cols-2 md:grid-cols-4 gap-5 w-full"
           >
             {team.map(({ name, role, initials }) => (
-              <motion.div key={name} variants={fadeUp}>
-                <div className="glass-card-white card-hover text-center p-6 sm:p-8 rounded-2xl h-full">
+              <motion.div key={name} variants={fadeUp} className="w-full min-w-0">
+                <div className="glass-card-white card-hover text-center p-6 sm:p-8 rounded-2xl h-full w-full">
                   <div
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-xl sm:text-2xl font-extrabold"
                     style={{ background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)", color: "var(--gold-light)" }}
@@ -301,7 +348,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-14" style={{ background: "var(--navy)" }}>
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-5 text-center">
           <AnimSection>
             <h2 className="text-white font-extrabold text-2xl md:text-3xl mb-4">
               Ready to work with <span className="text-gradient-gold">PSG Associate</span>?
