@@ -450,6 +450,92 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Industries Served ──────────────────────────────── */}
+      <section className="py-20 lg:py-28 relative overflow-hidden" style={{ background: "var(--off-white)" }}>
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
+          style={{ background: "radial-gradient(circle, var(--gold), transparent)", transform: "translate(40%, -40%)" }} />
+
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+          <AnimSection className="text-center mb-14">
+            <span className="gold-badge mb-4">Wide Reach</span>
+            <h2 className="section-title text-navy mb-4">Industries We <span className="text-gradient-gold">Serve</span></h2>
+            <div className="gold-line mx-auto mb-4" />
+            <p className="section-subtitle mx-auto text-center" style={{ maxWidth: 600 }}>
+              Trusted by companies across multiple industries for reliable workforce and business solutions.
+            </p>
+          </AnimSection>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full"
+          >
+            {[
+              { icon: "🏭", name: "Manufacturing", desc: "Factory & production floor staffing" },
+              { icon: "🏢", name: "Corporate", desc: "Office & administrative support" },
+              { icon: "🏥", name: "Healthcare", desc: "Hospital & clinic services" },
+              { icon: "🏬", name: "Retail", desc: "Store & sales operations" },
+              { icon: "🏗️", name: "Construction", desc: "Site workers & supervisors" },
+              { icon: "🏨", name: "Hospitality", desc: "Hotel & restaurant services" },
+              { icon: "🚗", name: "Logistics", desc: "Warehouse & delivery staff" },
+              { icon: "🎓", name: "Education", desc: "Support & maintenance services" },
+            ].map(({ icon, name, desc }) => (
+              <motion.div key={name} variants={fadeUp} className="w-full min-w-0">
+                <div className="glass-card-white card-hover p-5 sm:p-6 text-center rounded-2xl h-full">
+                  <div className="text-3xl sm:text-4xl mb-3">{icon}</div>
+                  <h3 className="text-navy font-bold text-sm sm:text-base mb-1.5 leading-tight">{name}</h3>
+                  <p className="text-gray-500 text-xs sm:text-sm leading-snug">{desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── FAQ Section ────────────────────────────────────── */}
+      <section className="py-20 lg:py-28" style={{ background: "white" }}>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10">
+          <AnimSection className="text-center mb-14">
+            <span className="gold-badge mb-4">Questions?</span>
+            <h2 className="section-title text-navy mb-4">Frequently Asked <span className="text-gradient-gold">Questions</span></h2>
+            <div className="gold-line mx-auto" />
+          </AnimSection>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="space-y-4 w-full"
+          >
+            {[
+              { q: "How quickly can you deploy staff?", a: "We can deploy verified staff within 24-48 hours of receiving your requirement. Emergency requests can be accommodated with our expedited service." },
+              { q: "Are all staff members background verified?", a: "Yes, all our staff undergo thorough background verification including police verification, document authentication, and reference checks." },
+              { q: "Do you provide services PAN India?", a: "Yes, we operate across all major cities in India including Delhi, Haryana, Punjab, UP, and other states with our growing network." },
+              { q: "What if we need to replace a staff member?", a: "We provide free replacement of any staff member within 7 days if there are issues. Your satisfaction is our priority." },
+              { q: "How do you ensure service quality?", a: "We have regular training programs, quality audits, and dedicated account managers to ensure consistent service excellence." },
+              { q: "Do you offer flexible payment terms?", a: "Yes, we offer flexible payment terms including monthly billing, quarterly, or annual contracts based on your requirement." },
+            ].map(({ q, a }, idx) => (
+              <motion.div key={idx} variants={fadeUp} className="w-full min-w-0">
+                <details className="glass-card-white rounded-2xl p-6 sm:p-7 cursor-pointer group">
+                  <summary className="flex items-start gap-4 outline-none">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1"
+                      style={{ background: "linear-gradient(135deg, var(--gold-light), var(--gold))" }}>
+                      <span className="text-navy font-bold text-sm group-open:hidden">+</span>
+                      <span className="text-navy font-bold text-sm hidden group-open:block">−</span>
+                    </div>
+                    <span className="font-bold text-navy text-base sm:text-lg flex-1 text-left leading-snug">{q}</span>
+                  </summary>
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed mt-4 ml-10">{a}</p>
+                </details>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── CTA Banner ────────────────────────────────────────── */}
       <section
         className="py-20 relative overflow-hidden"
@@ -465,14 +551,14 @@ export default function HomePage() {
           <AnimSection>
             <h2 className="font-extrabold text-navy mb-5"
               style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}>
-              Need Workforce or Business Services?
+              Transform Your Workforce Today
             </h2>
             <p className="text-navy/80 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              Contact PSG Associate today. We deliver reliable, professional and affordable solutions for all your business needs.
+              Experience premium business services with PSG Associate. Let us be your trusted partner for success.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn-navy py-4 px-8 text-base">
-                <MapPin size={18} /> Get in Touch
+              <Link href="/client-requirement" className="btn-navy py-4 px-8 text-base">
+                <Users size={18} /> Hire Now
               </Link>
               <a
                 href="https://wa.me/919313045554"
@@ -483,7 +569,7 @@ export default function HomePage() {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                 </svg>
-                WhatsApp Us
+                Chat on WhatsApp
               </a>
             </div>
           </AnimSection>
